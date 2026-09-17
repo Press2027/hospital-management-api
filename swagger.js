@@ -5,8 +5,8 @@ const doc = {
     title: "Hospital Management API",
     description: "CSE 341 Project 2 API"
   },
-  host: "localhost:3000",
-  schemes: ["http"]
+  host: "hospital-management-api-jp2e.onrender.com",
+  schemes: ["https"]
 };
 
 const outputFile = "./swagger.json";
