@@ -1,0 +1,22 @@
+{
+  "name": "hospital-management-api",
+  "version": "1.0.0",
+  "description": "CSE 341 Project 2 - Hospital Management API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "swagger": "node swagger.js",
+    "test": "echo \"No tests specified\""
+  },
+  "keywords": [],
+  "author": "Preston Machanga",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongodb": "^7.6.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  }
+}

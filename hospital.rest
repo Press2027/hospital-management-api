@@ -1,0 +1,40 @@
+### Get patients
+GET http://localhost:3000/patients
+
+###
+
+POST http://localhost:3000/patients
+Content-Type: application/json
+
+{
+  "firstName":"John",
+  "lastName":"Doe",
+  "age":30,
+  "gender":"Male",
+  "phone":"+211912345678",
+  "email":"john@example.com",
+  "bloodGroup":"O+",
+  "diagnosis":"Malaria",
+  "registeredDate":"2026-09-15"
+}
+
+###
+
+PUT http://localhost:3000/patients/PUT_ID_HERE
+Content-Type: application/json
+
+{
+  "firstName":"John",
+  "lastName":"Doe",
+  "age":31,
+  "gender":"Male",
+  "phone":"+211912345678",
+  "email":"john@example.com",
+  "bloodGroup":"O+",
+  "diagnosis":"Recovered",
+  "registeredDate":"2026-09-15"
+}
+
+###
+
+DELETE http://localhost:3000/patients/PUT_ID_HERE
