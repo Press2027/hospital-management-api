@@ -1,538 +1,247 @@
-{
-  "swagger": "2.0",
-  "info": {
-    "title": "Hospital Management API",
-    "description": "CSE 341 Project 2 API",
-    "version": "1.0.0"
+"/patients/": {
+  "get": {
+    "tags": ["Patients"],
+    "summary": "Get all patients",
+    "responses": {
+      "200": {
+        "description": "OK"
+      },
+      "500": {
+        "description": "Internal Server Error"
+      }
+    }
   },
-  "host": "hospital-management-api-jp2e.onrender.com",
-  "basePath": "/",
-  "schemes": [
-    "https"
-  ],
-  "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "patientId": {
-                  "example": "any"
-                },
-                "doctorName": {
-                  "example": "any"
-                },
-                "appointmentDate": {
-                  "example": "any"
-                },
-                "appointmentTime": {
-                  "example": "any"
-                },
-                "department": {
-                  "example": "any"
-                },
-                "reason": {
-                  "example": "any"
-                },
-                "status": {
-                  "example": "any"
-                }
-              }
+  "post": {
+    "tags": ["Patients"],
+    "summary": "Create a patient",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "required": [
+            "firstName",
+            "lastName",
+            "age",
+            "gender",
+            "phone",
+            "email",
+            "bloodGroup",
+            "diagnosis",
+            "address",
+            "registeredDate",
+            "emergencyContact"
+          ],
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "example": "John"
+            },
+            "lastName": {
+              "type": "string",
+              "example": "Doe"
+            },
+            "age": {
+              "type": "integer",
+              "example": 30
+            },
+            "gender": {
+              "type": "string",
+              "example": "Male"
+            },
+            "phone": {
+              "type": "string",
+              "example": "+211912345678"
+            },
+            "email": {
+              "type": "string",
+              "example": "john@example.com"
+            },
+            "bloodGroup": {
+              "type": "string",
+              "example": "O+"
+            },
+            "diagnosis": {
+              "type": "string",
+              "example": "Malaria"
+            },
+            "address": {
+              "type": "string",
+              "example": "Juba, South Sudan"
+            },
+            "registeredDate": {
+              "type": "string",
+              "example": "2026-09-19"
+            },
+            "emergencyContact": {
+              "type": "string",
+              "example": "+211987654321"
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
-    },
-    "/patients/": {
-      "get": {
-        "tags": [
-          "Patients"
-        ],
-        "summary": "Get all patients",
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+    ],
+    "responses": {
+      "201": {
+        "description": "Created"
       },
-      "post": {
-        "tags": [
-          "Patients"
-        ],
-        "summary": "Create a patient",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "example": "any"
-                },
-                "lastName": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "phone": {
-                  "example": "any"
-                },
-                "dateOfBirth": {
-                  "example": "any"
-                },
-                "gender": {
-                  "example": "any"
-                },
-                "address": {
-                  "example": "any"
-                },
-                "emergencyContact": {
-                  "example": "any"
-                }
-              }
+      "400": {
+        "description": "Bad Request"
+      },
+      "500": {
+        "description": "Internal Server Error"
+      }
+    }
+  }
+},
+
+"/patients/{id}": {
+  "get": {
+    "tags": ["Patients"],
+    "summary": "Get patient by ID",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK"
+      },
+      "400": {
+        "description": "Bad Request"
+      },
+      "404": {
+        "description": "Not Found"
+      },
+      "500": {
+        "description": "Internal Server Error"
+      }
+    }
+  },
+
+  "put": {
+    "tags": ["Patients"],
+    "summary": "Update a patient",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "required": [
+            "firstName",
+            "lastName",
+            "age",
+            "gender",
+            "phone",
+            "email",
+            "bloodGroup",
+            "diagnosis",
+            "address",
+            "registeredDate",
+            "emergencyContact"
+          ],
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "example": "John"
+            },
+            "lastName": {
+              "type": "string",
+              "example": "Doe"
+            },
+            "age": {
+              "type": "integer",
+              "example": 30
+            },
+            "gender": {
+              "type": "string",
+              "example": "Male"
+            },
+            "phone": {
+              "type": "string",
+              "example": "+211912345678"
+            },
+            "email": {
+              "type": "string",
+              "example": "john@example.com"
+            },
+            "bloodGroup": {
+              "type": "string",
+              "example": "O+"
+            },
+            "diagnosis": {
+              "type": "string",
+              "example": "Malaria"
+            },
+            "address": {
+              "type": "string",
+              "example": "Juba, South Sudan"
+            },
+            "registeredDate": {
+              "type": "string",
+              "example": "2026-09-19"
+            },
+            "emergencyContact": {
+              "type": "string",
+              "example": "+211987654321"
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
-    },
-    "/patients/{id}": {
-      "get": {
-        "tags": [
-          "Patients"
-        ],
-        "summary": "Get patient by ID",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+    ],
+    "responses": {
+      "204": {
+        "description": "No Content"
       },
-      "put": {
-        "tags": [
-          "Patients"
-        ],
-        "summary": "Update a patient",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "example": "any"
-                },
-                "lastName": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "phone": {
-                  "example": "any"
-                },
-                "dateOfBirth": {
-                  "example": "any"
-                },
-                "gender": {
-                  "example": "any"
-                },
-                "address": {
-                  "example": "any"
-                },
-                "emergencyContact": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+      "400": {
+        "description": "Bad Request"
       },
-      "delete": {
-        "tags": [
-          "Patients"
-        ],
-        "summary": "Delete a patient",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+      "404": {
+        "description": "Not Found"
+      },
+      "500": {
+        "description": "Internal Server Error"
       }
-    },
-    "/appointments/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "patientId": {
-                  "example": "any"
-                },
-                "doctorName": {
-                  "example": "any"
-                },
-                "appointmentDate": {
-                  "example": "any"
-                },
-                "appointmentTime": {
-                  "example": "any"
-                },
-                "department": {
-                  "example": "any"
-                },
-                "reason": {
-                  "example": "any"
-                },
-                "status": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+    }
+  },
+
+  "delete": {
+    "tags": ["Patients"],
+    "summary": "Delete a patient",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
       }
-    },
-    "/appointments/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+    ],
+    "responses": {
+      "204": {
+        "description": "No Content"
       },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "patientId": {
-                  "example": "any"
-                },
-                "doctorName": {
-                  "example": "any"
-                },
-                "appointmentDate": {
-                  "example": "any"
-                },
-                "appointmentTime": {
-                  "example": "any"
-                },
-                "department": {
-                  "example": "any"
-                },
-                "reason": {
-                  "example": "any"
-                },
-                "status": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+      "400": {
+        "description": "Bad Request"
       },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+      "404": {
+        "description": "Not Found"
       },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "patientId": {
-                  "example": "any"
-                },
-                "doctorName": {
-                  "example": "any"
-                },
-                "appointmentDate": {
-                  "example": "any"
-                },
-                "appointmentTime": {
-                  "example": "any"
-                },
-                "department": {
-                  "example": "any"
-                },
-                "reason": {
-                  "example": "any"
-                },
-                "status": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+      "500": {
+        "description": "Internal Server Error"
       }
     }
   }
