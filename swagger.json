@@ -1,247 +1,470 @@
-"/patients/": {
-  "get": {
-    "tags": ["Patients"],
-    "summary": "Get all patients",
-    "responses": {
-      "200": {
-        "description": "OK"
-      },
-      "500": {
-        "description": "Internal Server Error"
-      }
-    }
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Hospital Management API",
+    "description": "CSE 341 Project 2 API",
+    "version": "1.0.0"
   },
-  "post": {
-    "tags": ["Patients"],
-    "summary": "Create a patient",
-    "parameters": [
-      {
-        "name": "body",
-        "in": "body",
-        "required": true,
-        "schema": {
-          "type": "object",
-          "required": [
-            "firstName",
-            "lastName",
-            "age",
-            "gender",
-            "phone",
-            "email",
-            "bloodGroup",
-            "diagnosis",
-            "address",
-            "registeredDate",
-            "emergencyContact"
-          ],
-          "properties": {
-            "firstName": {
-              "type": "string",
-              "example": "John"
-            },
-            "lastName": {
-              "type": "string",
-              "example": "Doe"
-            },
-            "age": {
-              "type": "integer",
-              "example": 30
-            },
-            "gender": {
-              "type": "string",
-              "example": "Male"
-            },
-            "phone": {
-              "type": "string",
-              "example": "+211912345678"
-            },
-            "email": {
-              "type": "string",
-              "example": "john@example.com"
-            },
-            "bloodGroup": {
-              "type": "string",
-              "example": "O+"
-            },
-            "diagnosis": {
-              "type": "string",
-              "example": "Malaria"
-            },
-            "address": {
-              "type": "string",
-              "example": "Juba, South Sudan"
-            },
-            "registeredDate": {
-              "type": "string",
-              "example": "2026-09-19"
-            },
-            "emergencyContact": {
-              "type": "string",
-              "example": "+211987654321"
-            }
+  "host": "hospital-management-api-jp2e.onrender.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "API Home",
+        "description": "Hospital Management API is running.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
-    ],
-    "responses": {
-      "201": {
-        "description": "Created"
-      },
-      "400": {
-        "description": "Bad Request"
-      },
-      "500": {
-        "description": "Internal Server Error"
-      }
-    }
-  }
-},
+    },
 
-"/patients/{id}": {
-  "get": {
-    "tags": ["Patients"],
-    "summary": "Get patient by ID",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "OK"
+    "/patients": {
+      "get": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Get all patients",
+        "description": "Retrieve all patients from the database.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       },
-      "400": {
-        "description": "Bad Request"
-      },
-      "404": {
-        "description": "Not Found"
-      },
-      "500": {
-        "description": "Internal Server Error"
-      }
-    }
-  },
 
-  "put": {
-    "tags": ["Patients"],
-    "summary": "Update a patient",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "body",
-        "in": "body",
-        "required": true,
-        "schema": {
-          "type": "object",
-          "required": [
-            "firstName",
-            "lastName",
-            "age",
-            "gender",
-            "phone",
-            "email",
-            "bloodGroup",
-            "diagnosis",
-            "address",
-            "registeredDate",
-            "emergencyContact"
-          ],
-          "properties": {
-            "firstName": {
-              "type": "string",
-              "example": "John"
-            },
-            "lastName": {
-              "type": "string",
-              "example": "Doe"
-            },
-            "age": {
-              "type": "integer",
-              "example": 30
-            },
-            "gender": {
-              "type": "string",
-              "example": "Male"
-            },
-            "phone": {
-              "type": "string",
-              "example": "+211912345678"
-            },
-            "email": {
-              "type": "string",
-              "example": "john@example.com"
-            },
-            "bloodGroup": {
-              "type": "string",
-              "example": "O+"
-            },
-            "diagnosis": {
-              "type": "string",
-              "example": "Malaria"
-            },
-            "address": {
-              "type": "string",
-              "example": "Juba, South Sudan"
-            },
-            "registeredDate": {
-              "type": "string",
-              "example": "2026-09-19"
-            },
-            "emergencyContact": {
-              "type": "string",
-              "example": "+211987654321"
+      "post": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Create a patient",
+        "description": "Create a new patient.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "John"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john.doe@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "+211912345678"
+                },
+                "age": {
+                  "type": "integer",
+                  "example": 30
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "Male"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "Juba, South Sudan"
+                },
+                "emergencyContact": {
+                  "type": "string",
+                  "example": "+211987654321"
+                },
+                "diagnosis": {
+                  "type": "string",
+                  "example": "Malaria"
+                }
+              }
             }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Patient created successfully."
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
-    ],
-    "responses": {
-      "204": {
-        "description": "No Content"
-      },
-      "400": {
-        "description": "Bad Request"
-      },
-      "404": {
-        "description": "Not Found"
-      },
-      "500": {
-        "description": "Internal Server Error"
-      }
-    }
-  },
+    },
 
-  "delete": {
-    "tags": ["Patients"],
-    "summary": "Delete a patient",
-    "parameters": [
-      {
-        "name": "id",
-        "in": "path",
-        "required": true,
-        "type": "string"
+    "/patients/{id}": {
+      "get": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Get patient by ID",
+        "description": "Retrieve a single patient using the patient's MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB patient ID",
+            "example": "68c7a1b2c3d4e5f678901234"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Patient found."
+          },
+          "400": {
+            "description": "Invalid patient ID."
+          },
+          "404": {
+            "description": "Patient not found."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+
+      "put": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Update a patient",
+        "description": "Update an existing patient using the patient's MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB patient ID",
+            "example": "68c7a1b2c3d4e5f678901234"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "John"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john.doe@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "+211912345678"
+                },
+                "age": {
+                  "type": "integer",
+                  "example": 30
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "Male"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "Juba, South Sudan"
+                },
+                "emergencyContact": {
+                  "type": "string",
+                  "example": "+211987654321"
+                },
+                "diagnosis": {
+                  "type": "string",
+                  "example": "Malaria"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Patient updated successfully."
+          },
+          "400": {
+            "description": "Invalid patient ID or request."
+          },
+          "404": {
+            "description": "Patient not found."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+
+      "delete": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Delete a patient",
+        "description": "Delete a patient using the patient's MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB patient ID",
+            "example": "68c7a1b2c3d4e5f678901234"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Patient deleted successfully."
+          },
+          "400": {
+            "description": "Invalid patient ID."
+          },
+          "404": {
+            "description": "Patient not found."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
-    ],
-    "responses": {
-      "204": {
-        "description": "No Content"
+    },
+
+    "/appointments": {
+      "get": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Get all appointments",
+        "description": "Retrieve all appointments from the database.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       },
-      "400": {
-        "description": "Bad Request"
+
+      "post": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Create an appointment",
+        "description": "Create a new hospital appointment.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "type": "string",
+                  "example": "68c7a1b2c3d4e5f678901234"
+                },
+                "doctorName": {
+                  "type": "string",
+                  "example": "Dr. James Smith"
+                },
+                "appointmentDate": {
+                  "type": "string",
+                  "example": "2026-09-20"
+                },
+                "appointmentTime": {
+                  "type": "string",
+                  "example": "10:30"
+                },
+                "department": {
+                  "type": "string",
+                  "example": "General Medicine"
+                },
+                "reason": {
+                  "type": "string",
+                  "example": "Routine medical checkup"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "Scheduled"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Appointment created successfully."
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/appointments/{id}": {
+      "get": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Get appointment by ID",
+        "description": "Retrieve an appointment using its MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB appointment ID",
+            "example": "68c7a1b2c3d4e5f678901234"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Appointment found."
+          },
+          "400": {
+            "description": "Invalid appointment ID."
+          },
+          "404": {
+            "description": "Appointment not found."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       },
-      "404": {
-        "description": "Not Found"
+
+      "put": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Update an appointment",
+        "description": "Update an existing appointment.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB appointment ID",
+            "example": "68c7a1b2c3d4e5f678901234"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "type": "string",
+                  "example": "68c7a1b2c3d4e5f678901234"
+                },
+                "doctorName": {
+                  "type": "string",
+                  "example": "Dr. James Smith"
+                },
+                "appointmentDate": {
+                  "type": "string",
+                  "example": "2026-09-20"
+                },
+                "appointmentTime": {
+                  "type": "string",
+                  "example": "10:30"
+                },
+                "department": {
+                  "type": "string",
+                  "example": "General Medicine"
+                },
+                "reason": {
+                  "type": "string",
+                  "example": "Routine medical checkup"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "Scheduled"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Appointment updated successfully."
+          },
+          "400": {
+            "description": "Invalid appointment ID or request."
+          },
+          "404": {
+            "description": "Appointment not found."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       },
-      "500": {
-        "description": "Internal Server Error"
+
+      "delete": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Delete an appointment",
+        "description": "Delete an appointment using its MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB appointment ID",
+            "example": "68c7a1b2c3d4e5f678901234"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Appointment deleted successfully."
+          },
+          "400": {
+            "description": "Invalid appointment ID."
+          },
+          "404": {
+            "description": "Appointment not found."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     }
   }
