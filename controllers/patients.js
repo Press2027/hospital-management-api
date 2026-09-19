@@ -1,7 +1,7 @@
 const mongodb = require("../data/database");
 const { ObjectId } = require("mongodb");
 
-// GET ALL PATIENTS
+// GET all patients
 const getAll = async (req, res) => {
   try {
     const result = await mongodb
@@ -14,28 +14,32 @@ const getAll = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "Error retrieving patients.",
-      error: err.message,
+      error: err.message
     });
   }
 };
 
-// GET SINGLE PATIENT
+// GET patient by ID
 const getSingle = async (req, res) => {
   try {
-    if (!ObjectId.isValid(req.params.id)) {
+    const patientId = req.params.id;
+
+    if (!ObjectId.isValid(patientId)) {
       return res.status(400).json({
-        message: "Invalid patient ID.",
+        message: "Invalid patient ID."
       });
     }
 
     const result = await mongodb
       .getDatabase()
       .collection("patients")
-      .findOne({ _id: new ObjectId(req.params.id) });
+      .findOne({
+        _id: new ObjectId(patientId)
+      });
 
     if (!result) {
       return res.status(404).json({
-        message: "Patient not found.",
+        message: "Patient not found."
       });
     }
 
@@ -43,149 +47,175 @@ const getSingle = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "Error retrieving patient.",
-      error: err.message,
+      error: err.message
     });
   }
 };
 
-// CREATE PATIENT
+// CREATE patient
 const createPatient = async (req, res) => {
   try {
-    const patient = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      age: req.body.age,
-      gender: req.body.gender,
-      phone: req.body.phone,
-      email: req.body.email,
-      bloodGroup: req.body.bloodGroup,
-      diagnosis: req.body.diagnosis,
-      address: req.body.address,
-      registeredDate: req.body.registeredDate,
-      emergencyContact: req.body.emergencyContact,
-    };
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      age,
+      gender,
+      address,
+      emergencyContact,
+      diagnosis
+    } = req.body;
 
+    // Check required fields
     if (
-      !patient.firstName ||
-      !patient.lastName ||
-      patient.age === undefined ||
-      !patient.gender ||
-      !patient.phone ||
-      !patient.email ||
-      !patient.bloodGroup ||
-      !patient.diagnosis ||
-      !patient.address ||
-      !patient.registeredDate ||
-      !patient.emergencyContact
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      age === undefined ||
+      !gender ||
+      !address ||
+      !emergencyContact ||
+      !diagnosis
     ) {
       return res.status(400).json({
-        message: "All patient fields are required.",
+        message: "All patient fields are required."
       });
     }
 
-    const response = await mongodb
+    const patient = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      age: Number(age),
+      gender,
+      address,
+      emergencyContact,
+      diagnosis
+    };
+
+    const result = await mongodb
       .getDatabase()
       .collection("patients")
       .insertOne(patient);
 
     res.status(201).json({
       message: "Patient created successfully.",
-      id: response.insertedId,
+      patientId: result.insertedId
     });
   } catch (err) {
     res.status(500).json({
       message: "Error creating patient.",
-      error: err.message,
+      error: err.message
     });
   }
 };
 
-// UPDATE PATIENT
+// UPDATE patient
 const updatePatient = async (req, res) => {
   try {
-    if (!ObjectId.isValid(req.params.id)) {
+    const patientId = req.params.id;
+
+    if (!ObjectId.isValid(patientId)) {
       return res.status(400).json({
-        message: "Invalid patient ID.",
+        message: "Invalid patient ID."
       });
     }
 
-    const patient = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      age: req.body.age,
-      gender: req.body.gender,
-      phone: req.body.phone,
-      email: req.body.email,
-      bloodGroup: req.body.bloodGroup,
-      diagnosis: req.body.diagnosis,
-      address: req.body.address,
-      registeredDate: req.body.registeredDate,
-      emergencyContact: req.body.emergencyContact,
-    };
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      age,
+      gender,
+      address,
+      emergencyContact,
+      diagnosis
+    } = req.body;
 
     if (
-      !patient.firstName ||
-      !patient.lastName ||
-      patient.age === undefined ||
-      !patient.gender ||
-      !patient.phone ||
-      !patient.email ||
-      !patient.bloodGroup ||
-      !patient.diagnosis ||
-      !patient.address ||
-      !patient.registeredDate ||
-      !patient.emergencyContact
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      age === undefined ||
+      !gender ||
+      !address ||
+      !emergencyContact ||
+      !diagnosis
     ) {
       return res.status(400).json({
-        message: "All patient fields are required.",
+        message: "All patient fields are required."
       });
     }
 
-    const response = await mongodb
+    const updatedPatient = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      age: Number(age),
+      gender,
+      address,
+      emergencyContact,
+      diagnosis
+    };
+
+    const result = await mongodb
       .getDatabase()
       .collection("patients")
-      .replaceOne({ _id: new ObjectId(req.params.id) }, patient);
+      .replaceOne(
+        { _id: new ObjectId(patientId) },
+        updatedPatient
+      );
 
-    if (!response.matchedCount) {
+    if (result.matchedCount === 0) {
       return res.status(404).json({
-        message: "Patient not found.",
+        message: "Patient not found."
       });
     }
 
-    res.sendStatus(204);
+    res.status(204).send();
   } catch (err) {
     res.status(500).json({
       message: "Error updating patient.",
-      error: err.message,
+      error: err.message
     });
   }
 };
 
-// DELETE PATIENT
+// DELETE patient
 const deletePatient = async (req, res) => {
   try {
-    if (!ObjectId.isValid(req.params.id)) {
+    const patientId = req.params.id;
+
+    if (!ObjectId.isValid(patientId)) {
       return res.status(400).json({
-        message: "Invalid patient ID.",
+        message: "Invalid patient ID."
       });
     }
 
-    const response = await mongodb
+    const result = await mongodb
       .getDatabase()
       .collection("patients")
-      .deleteOne({ _id: new ObjectId(req.params.id) });
+      .deleteOne({
+        _id: new ObjectId(patientId)
+      });
 
-    if (!response.deletedCount) {
+    if (result.deletedCount === 0) {
       return res.status(404).json({
-        message: "Patient not found.",
+        message: "Patient not found."
       });
     }
 
-    res.sendStatus(204);
+    res.status(204).send();
   } catch (err) {
     res.status(500).json({
       message: "Error deleting patient.",
-      error: err.message,
+      error: err.message
     });
   }
 };
@@ -195,5 +225,5 @@ module.exports = {
   getSingle,
   createPatient,
   updatePatient,
-  deletePatient,
+  deletePatient
 };
