@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+router.use("/auth", require("./auth"));
 router.use("/patients", require("./patients"));
 router.use("/appointments", require("./appointments"));
 

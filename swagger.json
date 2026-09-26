@@ -10,29 +10,20 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "GitHubOAuth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://github.com/login/oauth/authorize",
+      "flow": "implicit",
+      "scopes": {
+        "user:email": "Access user email"
+      }
+    }
+  },
   "paths": {
     "/": {
       "get": {
-        "summary": "API Home",
-        "description": "Hospital Management API is running.",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-
-    "/patients": {
-      "get": {
-        "tags": [
-          "Patients"
-        ],
-        "summary": "Get all patients",
-        "description": "Retrieve all patients from the database.",
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -42,56 +33,35 @@
           }
         }
       },
-
       "post": {
-        "tags": [
-          "Patients"
-        ],
-        "summary": "Create a patient",
-        "description": "Create a new patient.",
+        "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "John"
+                "patientId": {
+                  "example": "any"
                 },
-                "lastName": {
-                  "type": "string",
-                  "example": "Doe"
+                "doctorName": {
+                  "example": "any"
                 },
-                "email": {
-                  "type": "string",
-                  "example": "john.doe@example.com"
+                "appointmentDate": {
+                  "example": "any"
                 },
-                "phone": {
-                  "type": "string",
-                  "example": "+211912345678"
+                "appointmentTime": {
+                  "example": "any"
                 },
-                "age": {
-                  "type": "integer",
-                  "example": 30
+                "department": {
+                  "example": "any"
                 },
-                "gender": {
-                  "type": "string",
-                  "example": "Male"
+                "reason": {
+                  "example": "any"
                 },
-                "address": {
-                  "type": "string",
-                  "example": "Juba, South Sudan"
-                },
-                "emergencyContact": {
-                  "type": "string",
-                  "example": "+211987654321"
-                },
-                "diagnosis": {
-                  "type": "string",
-                  "example": "Malaria"
+                "status": {
+                  "example": "any"
                 }
               }
             }
@@ -99,10 +69,13 @@
         ],
         "responses": {
           "201": {
-            "description": "Patient created successfully."
+            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -110,97 +83,248 @@
         }
       }
     },
-
+    "/auth/github": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login with GitHub",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/github/callback": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "GitHub OAuth callback",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/profile": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "View logged-in user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "GitHubOAuth": []
+          }
+        ]
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "GitHubOAuth": []
+          }
+        ]
+      }
+    },
+    "/auth/login-failed": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login failure",
+        "description": "",
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/patients/": {
+      "get": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Get all patients",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Create a patient",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "phone": {
+                  "example": "any"
+                },
+                "age": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "emergencyContact": {
+                  "example": "any"
+                },
+                "diagnosis": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "GitHubOAuth": []
+          }
+        ]
+      }
+    },
     "/patients/{id}": {
       "get": {
         "tags": [
           "Patients"
         ],
         "summary": "Get patient by ID",
-        "description": "Retrieve a single patient using the patient's MongoDB ID.",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB patient ID",
-            "example": "68c7a1b2c3d4e5f678901234"
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Patient found."
+            "description": "OK"
           },
           "400": {
-            "description": "Invalid patient ID."
+            "description": "Bad Request"
           },
           "404": {
-            "description": "Patient not found."
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
         }
       },
-
       "put": {
         "tags": [
           "Patients"
         ],
         "summary": "Update a patient",
-        "description": "Update an existing patient using the patient's MongoDB ID.",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB patient ID",
-            "example": "68c7a1b2c3d4e5f678901234"
+            "type": "string"
           },
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "firstName": {
-                  "type": "string",
-                  "example": "John"
+                  "example": "any"
                 },
                 "lastName": {
-                  "type": "string",
-                  "example": "Doe"
+                  "example": "any"
                 },
                 "email": {
-                  "type": "string",
-                  "example": "john.doe@example.com"
+                  "example": "any"
                 },
                 "phone": {
-                  "type": "string",
-                  "example": "+211912345678"
+                  "example": "any"
                 },
                 "age": {
-                  "type": "integer",
-                  "example": 30
+                  "example": "any"
                 },
                 "gender": {
-                  "type": "string",
-                  "example": "Male"
+                  "example": "any"
                 },
                 "address": {
-                  "type": "string",
-                  "example": "Juba, South Sudan"
+                  "example": "any"
                 },
                 "emergencyContact": {
-                  "type": "string",
-                  "example": "+211987654321"
+                  "example": "any"
                 },
                 "diagnosis": {
-                  "type": "string",
-                  "example": "Malaria"
+                  "example": "any"
                 }
               }
             }
@@ -208,60 +332,68 @@
         ],
         "responses": {
           "204": {
-            "description": "Patient updated successfully."
+            "description": "No Content"
           },
           "400": {
-            "description": "Invalid patient ID or request."
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
-            "description": "Patient not found."
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "GitHubOAuth": []
+          }
+        ]
       },
-
       "delete": {
         "tags": [
           "Patients"
         ],
         "summary": "Delete a patient",
-        "description": "Delete a patient using the patient's MongoDB ID.",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB patient ID",
-            "example": "68c7a1b2c3d4e5f678901234"
+            "type": "string"
           }
         ],
         "responses": {
           "204": {
-            "description": "Patient deleted successfully."
+            "description": "No Content"
           },
           "400": {
-            "description": "Invalid patient ID."
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
-            "description": "Patient not found."
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "GitHubOAuth": []
+          }
+        ]
       }
     },
-
-    "/appointments": {
+    "/appointments/": {
       "get": {
-        "tags": [
-          "Appointments"
-        ],
-        "summary": "Get all appointments",
-        "description": "Retrieve all appointments from the database.",
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -271,48 +403,35 @@
           }
         }
       },
-
       "post": {
-        "tags": [
-          "Appointments"
-        ],
-        "summary": "Create an appointment",
-        "description": "Create a new hospital appointment.",
+        "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "patientId": {
-                  "type": "string",
-                  "example": "68c7a1b2c3d4e5f678901234"
+                  "example": "any"
                 },
                 "doctorName": {
-                  "type": "string",
-                  "example": "Dr. James Smith"
+                  "example": "any"
                 },
                 "appointmentDate": {
-                  "type": "string",
-                  "example": "2026-09-20"
+                  "example": "any"
                 },
                 "appointmentTime": {
-                  "type": "string",
-                  "example": "10:30"
+                  "example": "any"
                 },
                 "department": {
-                  "type": "string",
-                  "example": "General Medicine"
+                  "example": "any"
                 },
                 "reason": {
-                  "type": "string",
-                  "example": "Routine medical checkup"
+                  "example": "any"
                 },
                 "status": {
-                  "type": "string",
-                  "example": "Scheduled"
+                  "example": "any"
                 }
               }
             }
@@ -320,7 +439,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Appointment created successfully."
+            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
@@ -331,89 +450,67 @@
         }
       }
     },
-
     "/appointments/{id}": {
       "get": {
-        "tags": [
-          "Appointments"
-        ],
-        "summary": "Get appointment by ID",
-        "description": "Retrieve an appointment using its MongoDB ID.",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB appointment ID",
-            "example": "68c7a1b2c3d4e5f678901234"
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Appointment found."
+            "description": "OK"
           },
           "400": {
-            "description": "Invalid appointment ID."
+            "description": "Bad Request"
           },
           "404": {
-            "description": "Appointment not found."
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
         }
       },
-
       "put": {
-        "tags": [
-          "Appointments"
-        ],
-        "summary": "Update an appointment",
-        "description": "Update an existing appointment.",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB appointment ID",
-            "example": "68c7a1b2c3d4e5f678901234"
+            "type": "string"
           },
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "patientId": {
-                  "type": "string",
-                  "example": "68c7a1b2c3d4e5f678901234"
+                  "example": "any"
                 },
                 "doctorName": {
-                  "type": "string",
-                  "example": "Dr. James Smith"
+                  "example": "any"
                 },
                 "appointmentDate": {
-                  "type": "string",
-                  "example": "2026-09-20"
+                  "example": "any"
                 },
                 "appointmentTime": {
-                  "type": "string",
-                  "example": "10:30"
+                  "example": "any"
                 },
                 "department": {
-                  "type": "string",
-                  "example": "General Medicine"
+                  "example": "any"
                 },
                 "reason": {
-                  "type": "string",
-                  "example": "Routine medical checkup"
+                  "example": "any"
                 },
                 "status": {
-                  "type": "string",
-                  "example": "Scheduled"
+                  "example": "any"
                 }
               }
             }
@@ -421,45 +518,237 @@
         ],
         "responses": {
           "204": {
-            "description": "Appointment updated successfully."
+            "description": "No Content"
           },
           "400": {
-            "description": "Invalid appointment ID or request."
+            "description": "Bad Request"
           },
           "404": {
-            "description": "Appointment not found."
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
         }
       },
-
       "delete": {
-        "tags": [
-          "Appointments"
-        ],
-        "summary": "Delete an appointment",
-        "description": "Delete an appointment using its MongoDB ID.",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB appointment ID",
-            "example": "68c7a1b2c3d4e5f678901234"
+            "type": "string"
           }
         ],
         "responses": {
           "204": {
-            "description": "Appointment deleted successfully."
+            "description": "No Content"
           },
           "400": {
-            "description": "Invalid appointment ID."
+            "description": "Bad Request"
           },
           "404": {
-            "description": "Appointment not found."
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/github": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login with GitHub",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/github/callback": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "GitHub OAuth callback",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "View logged-in user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "GitHubOAuth": []
+          }
+        ]
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "GitHubOAuth": []
+          }
+        ]
+      }
+    },
+    "/login-failed": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login failure",
+        "description": "",
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "doctorName": {
+                  "example": "any"
+                },
+                "appointmentDate": {
+                  "example": "any"
+                },
+                "appointmentTime": {
+                  "example": "any"
+                },
+                "department": {
+                  "example": "any"
+                },
+                "reason": {
+                  "example": "any"
+                },
+                "status": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
