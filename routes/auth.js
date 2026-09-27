@@ -22,37 +22,27 @@ router.get("/github/callback", (req, res, next) => {
   res.redirect("/auth/profile");
 });
 
-// View logged-in user
 router.get("/profile", (req, res) => {
   // #swagger.tags = ['Authentication']
   // #swagger.summary = 'View logged-in user'
-  // #swagger.security = [{ "GitHubOAuth": [] }]
 
   if (!req.user) {
-    return res.status(401).json({
-      message: "Not logged in."
-    });
+    return res.status(401).json({ message: "Not logged in." });
   }
 
   res.status(200).json(req.user);
 });
 
-// Logout
 router.get("/logout", (req, res) => {
   // #swagger.tags = ['Authentication']
   // #swagger.summary = 'Logout'
-  // #swagger.security = [{ "GitHubOAuth": [] }]
 
   req.logout((err) => {
     if (err) {
-      return res.status(500).json({
-        message: "Logout failed."
-      });
+      return res.status(500).json({ message: "Logout failed." });
     }
 
-    res.json({
-      message: "Logged out successfully."
-    });
+    res.json({ message: "Logged out successfully." });
   });
 });
 

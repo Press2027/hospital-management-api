@@ -6,25 +6,11 @@ const doc = {
     description: "CSE 341 Project 2 API",
     version: "1.0.0"
   },
-
   host: "hospital-management-api-jp2e.onrender.com",
-  schemes: ["https"],
-
-  securityDefinitions: {
-    GitHubOAuth: {
-      type: "oauth2",
-      authorizationUrl: "https://github.com/login/oauth/authorize",
-      tokenUrl: "https://github.com/login/oauth/access_token",
-      flow: "accessCode",
-      scopes: {
-        "user:email": "Access user email"
-      }
-    }
-  }
+  schemes: ["https"]
 };
 
 const outputFile = "./swagger.json";
-
 const endpointsFiles = [
   "./routes/index.js",
   "./routes/auth.js",

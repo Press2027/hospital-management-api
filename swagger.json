@@ -10,17 +10,6 @@
   "schemes": [
     "https"
   ],
-  "securityDefinitions": {
-    "GitHubOAuth": {
-      "type": "oauth2",
-      "authorizationUrl": "https://github.com/login/oauth/authorize",
-      "tokenUrl": "https://github.com/login/oauth/access_token",
-      "flow": "accessCode",
-      "scopes": {
-        "user:email": "Access user email"
-      }
-    }
-  },
   "paths": {
     "/": {
       "get": {
@@ -126,12 +115,7 @@
           "401": {
             "description": "Unauthorized"
           }
-        },
-        "security": [
-          {
-            "GitHubOAuth": []
-          }
-        ]
+        }
       }
     },
     "/auth/logout": {
@@ -148,12 +132,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "GitHubOAuth": []
-          }
-        ]
+        }
       }
     },
     "/auth/login-failed": {
@@ -600,12 +579,7 @@
           "401": {
             "description": "Unauthorized"
           }
-        },
-        "security": [
-          {
-            "GitHubOAuth": []
-          }
-        ]
+        }
       }
     },
     "/logout": {
@@ -622,12 +596,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "GitHubOAuth": []
-          }
-        ]
+        }
       }
     },
     "/login-failed": {
