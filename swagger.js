@@ -8,14 +8,14 @@ const doc = {
   },
 
   host: "hospital-management-api-jp2e.onrender.com",
-
   schemes: ["https"],
 
   securityDefinitions: {
     GitHubOAuth: {
       type: "oauth2",
       authorizationUrl: "https://github.com/login/oauth/authorize",
-      flow: "implicit",
+      tokenUrl: "https://github.com/login/oauth/access_token",
+      flow: "accessCode",
       scopes: {
         "user:email": "Access user email"
       }
