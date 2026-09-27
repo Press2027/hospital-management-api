@@ -6,16 +6,16 @@ const doc = {
     description: "CSE 341 Project 2 API",
     version: "1.0.0"
   },
+
   host: "hospital-management-api-jp2e.onrender.com",
+  basePath: "/",
   schemes: ["https"]
 };
 
 const outputFile = "./swagger.json";
+
 const endpointsFiles = [
-  "./routes/index.js",
-  "./routes/auth.js",
-  "./routes/patients.js",
-  "./routes/appointments.js"
+  "./routes/index.js"
 ];
 
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
