@@ -170,12 +170,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "GitHubOAuth": []
-          }
-        ]
+        }
       }
     },
     "/patients/{id}": {
@@ -274,12 +269,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "GitHubOAuth": []
-          }
-        ]
+        }
       },
       "delete": {
         "tags": [
@@ -311,12 +301,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "GitHubOAuth": []
-          }
-        ]
+        }
       }
     },
     "/appointments/": {

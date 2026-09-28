@@ -4,6 +4,7 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 const GitHubStrategy = require("passport-github2").Strategy;
@@ -20,7 +21,12 @@ const PORT = process.env.PORT || 3000;
 // Render runs behind a proxy
 app.set("trust proxy", 1);
 
+// Base URL (Render or localhost)
+const BASE_URL =
+  process.env.BASE_URL || `http://localhost:${PORT}`;
+
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 app.use(
@@ -39,10 +45,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Base URL (Render or localhost)
-const BASE_URL =
-  process.env.BASE_URL || `http://localhost:${PORT}`;
-
 // GitHub OAuth
 passport.use(
   new GitHubStrategy(
@@ -55,9 +57,7 @@ passport.use(
       try {
         const users = mongodb.getDatabase().collection("users");
 
-        let user = await users.findOne({
-          githubId: profile.id
-        });
+        let user = await users.findOne({ githubId: profile.id });
 
         if (!user) {
           const newUser = {
@@ -68,11 +68,7 @@ passport.use(
           };
 
           const result = await users.insertOne(newUser);
-
-          user = {
-            _id: result.insertedId,
-            ...newUser
-          };
+          user = { _id: result.insertedId, ...newUser };
         }
 
         return done(null, user);
@@ -94,9 +90,7 @@ passport.deserializeUser(async (id, done) => {
     const user = await mongodb
       .getDatabase()
       .collection("users")
-      .findOne({
-        _id: new ObjectId(id)
-      });
+      .findOne({ _id: new ObjectId(id) });
 
     done(null, user);
   } catch (err) {
@@ -108,11 +102,7 @@ passport.deserializeUser(async (id, done) => {
 app.use("/", routes);
 
 // Swagger
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument)
-);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Start server
 mongodb.initDB((err) => {
