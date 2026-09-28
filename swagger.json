@@ -346,13 +346,13 @@
                 "appointmentTime": {
                   "example": "any"
                 },
+                "department": {
+                  "example": "any"
+                },
                 "reason": {
                   "example": "any"
                 },
                 "status": {
-                  "example": "any"
-                },
-                "department": {
                   "example": "any"
                 }
               }
@@ -431,13 +431,13 @@
                 "appointmentTime": {
                   "example": "any"
                 },
+                "department": {
+                  "example": "any"
+                },
                 "reason": {
                   "example": "any"
                 },
                 "status": {
-                  "example": "any"
-                },
-                "department": {
                   "example": "any"
                 }
               }
