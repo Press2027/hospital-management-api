@@ -27,7 +27,9 @@ router.get(
     failureRedirect: "/auth/login-failed"
   }),
   (req, res) => {
-    res.redirect("/auth/profile");
+    // Login successful
+    // Redirect user to the application's home page
+    res.redirect("/");
   }
 );
 
@@ -42,7 +44,13 @@ router.get("/profile", (req, res) => {
     });
   }
 
-  res.status(200).json(req.user);
+  res.status(200).json({
+    _id: req.user._id,
+    githubId: req.user.githubId,
+    username: req.user.username,
+    displayName: req.user.displayName,
+    profileUrl: req.user.profileUrl
+  });
 });
 
 // Logout
