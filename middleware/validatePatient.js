@@ -41,12 +41,7 @@ const validatePatient = (req, res, next) => {
     });
   }
 
-  // Validate registered date
-  if (isNaN(Date.parse(registeredDate))) {
-    return res.status(400).json({
-      message: "Invalid registered date."
-    });
-  }
+
 
   next();
 };
