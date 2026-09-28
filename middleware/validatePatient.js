@@ -7,8 +7,7 @@ const validatePatient = (req, res, next) => {
     phone,
     email,
     bloodGroup,
-    diagnosis,
-    registeredDate
+    diagnosis
   } = req.body;
 
   // Check required fields
@@ -19,7 +18,7 @@ const validatePatient = (req, res, next) => {
     !gender ||
     !phone ||
     !email ||
-    !diagnosis 
+    !diagnosis
   ) {
     return res.status(400).json({
       message: "All patient fields are required."
@@ -35,13 +34,12 @@ const validatePatient = (req, res, next) => {
 
   // Validate email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (!emailRegex.test(email)) {
     return res.status(400).json({
       message: "Invalid email address."
     });
   }
-
-
 
   next();
 };
