@@ -132,25 +132,31 @@
                 "lastName": {
                   "example": "any"
                 },
-                "email": {
-                  "example": "any"
-                },
-                "phone": {
-                  "example": "any"
-                },
                 "age": {
                   "example": "any"
                 },
                 "gender": {
                   "example": "any"
                 },
+                "phone": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "bloodGroup": {
+                  "example": "any"
+                },
+                "diagnosis": {
+                  "example": "any"
+                },
+                "registeredDate": {
+                  "example": "any"
+                },
                 "address": {
                   "example": "any"
                 },
                 "emergencyContact": {
-                  "example": "any"
-                },
-                "diagnosis": {
                   "example": "any"
                 }
               }
@@ -228,25 +234,31 @@
                 "lastName": {
                   "example": "any"
                 },
-                "email": {
-                  "example": "any"
-                },
-                "phone": {
-                  "example": "any"
-                },
                 "age": {
                   "example": "any"
                 },
                 "gender": {
                   "example": "any"
                 },
+                "phone": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "bloodGroup": {
+                  "example": "any"
+                },
+                "diagnosis": {
+                  "example": "any"
+                },
+                "registeredDate": {
+                  "example": "any"
+                },
                 "address": {
                   "example": "any"
                 },
                 "emergencyContact": {
-                  "example": "any"
-                },
-                "diagnosis": {
                   "example": "any"
                 }
               }
@@ -337,13 +349,13 @@
                 "appointmentTime": {
                   "example": "any"
                 },
-                "department": {
-                  "example": "any"
-                },
                 "reason": {
                   "example": "any"
                 },
                 "status": {
+                  "example": "any"
+                },
+                "department": {
                   "example": "any"
                 }
               }
@@ -416,13 +428,13 @@
                 "appointmentTime": {
                   "example": "any"
                 },
-                "department": {
-                  "example": "any"
-                },
                 "reason": {
                   "example": "any"
                 },
                 "status": {
+                  "example": "any"
+                },
+                "department": {
                   "example": "any"
                 }
               }
