@@ -19,9 +19,7 @@ const validatePatient = (req, res, next) => {
     !gender ||
     !phone ||
     !email ||
-    !bloodGroup ||
-    !diagnosis ||
-    !registeredDate
+    !diagnosis 
   ) {
     return res.status(400).json({
       message: "All patient fields are required."
